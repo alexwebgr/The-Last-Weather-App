@@ -48,7 +48,7 @@ weathercodes = {
     "904": "extreme <strong>fucking heat</strong>",
     "905": "it's <strong>windy as fuck</strong>",
     "906": "it's <strong>fucking hailing</strong> right now"
-}
+};
 
 temperatures = [];
 temperatures[0] = "Hell is <strong>freezing</strong> over.";
@@ -82,5 +82,5 @@ phrases = {
     'sharemisery' : 'Share your misery',
     'errorfetching' : 'Error fetching the weather.',
     'lookoutsideafterall' : 'Looks like you\'re gonna have to look outside after all.',
-    'and' : 'and', // to link two weather descriptions, e.g. it's fucking raining and there's mist 
-}
+    'and' : 'and' // to link two weather descriptions, e.g. it's fucking raining and there's mist
+};

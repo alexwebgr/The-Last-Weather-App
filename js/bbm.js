@@ -50,4 +50,4 @@ var bbm = {
 			);
 		}
 	};
-	bbm.register();
+	//bbm.register();
