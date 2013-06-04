@@ -31,6 +31,11 @@ While I can't stop anyone from using this code to create an iOS app (free or pai
 
 I've decided to make this code Open Source so other BlackBerry&reg; WebWorks developers can take a look at it and maybe learn something for their own apps.
 
-## Contact me
+## Contact
 
-If you have any questions, suggestions or other feedback, please contact me at marcovhv - at - gmail.com.
+If you have any questions, suggestions or other feedback, please contact marcovhv - at - gmail.com.
+## forked by alexwebgr
+
+i have decided to fork this app and refactor it according to my beliefs and code standards along with playing around with webworks api and possibly adding some new features.
+
+you can always contact me if you want at websurfer992[at]gmail[dot]com

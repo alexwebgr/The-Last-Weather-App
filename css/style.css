@@ -85,17 +85,15 @@ body.night #weather {
 }
 #menu {
     position: absolute;
-    z-index: 2;
+    z-index: 2000;
     bottom: 20px;
     left: 20px;
     width: 81px;
     height: 81px;
-    background: url(../icons/star.png);
-    background-position: right;
+    background: url(../icons/star.png) right;
 }
 body.night #menu {
-    background: url(../icons/star_n.png);   
-    background-position: right; 
+    background: url(../icons/star_n.png) right;
 }
 
 #menu.on, body.night #menu.on {

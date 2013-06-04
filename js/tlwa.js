@@ -18,48 +18,37 @@
 $(function ($)
 {
     setLanguage();
-    //getWeather();
 
-    $("#language").on({
-        change : function ()
-        {
-            //phrases = null;
-            var lang = $("#language").val();
-            console.log(lang);
-            //$(document).unbind();
-            localStorage.setItem("language", lang);
-            setLanguage();
-            try
+    $("body")
+        .on({
+            change : function ()
             {
-                blackberry.ui.cover.resetCover();
+                var lang = $("#language").val();
+                localStorage.setItem("language", lang);
+
+                setLanguage();
+
+                try
+                {
+                    blackberry.ui.cover.resetCover();
+                }
+                catch (e)
+                {
+                    console.log(e);
+                }
             }
-            catch (e)
+        },"#language")
+
+        .on({
+            click : function()
             {
-                console.log(e);
+                $("#weather, #bbmscreen").hide();
+                $("#infoscreen").show();
+                //$("#menu").removeClass("on");
+                //$("#menu").hide();
             }
-        }
-    },"option");
-
-
-    $("#language").find("option").each(function ()
-    {
-        var lang = getLanguage();
-
-        if (lang == $(this).val())
-        {
-            $(this).attr("selected", "true");
-        }
-    });
-
-    $("body").on({
-        click : function()
-        {
-            $("#weather, #bbmscreen").hide();
-            $("#infoscreen").show();
-            //$("#menu").removeClass("on");
-            //$("#menu").hide();
-        }
-    },"#menu");
+        },"#menu")
+    ;
 });
 
     function getLanguage()
@@ -70,7 +59,6 @@ $(function ($)
         {
             lang = "en";
             localStorage.setItem("language", lang);
-            //js/strings-" + lang + ".js"
         }
 
         return lang;
@@ -99,7 +87,7 @@ $(function ($)
 
     function getWeather()
     {
-
+        var lang = getLanguage();
         $("#weather").html("<div id='loader'><p id='fetching'>" + phrases.fetching + "</p></div>");
         navigator.geolocation.getCurrentPosition(showWeather);
 
@@ -254,24 +242,24 @@ $(function ($)
                     }
                 }
 
-                bbmmessage = bbmmessage + " " + "(" + Math.round((avg_temp * 1.8) + 32) + "F / " + Math.round(avg_temp) + "C)";
+                //bbmmessage += "(" + Math.round((avg_temp * 1.8) + 32) + "F / " + Math.round(avg_temp) + "C)";
                 out = "<div class='weatherIcons'>" + weathericonstrip + "</div>";
-                out = out + "<div id='weatherpanel'>";
-                out = out + "<p id='loc'>" + phrases.near + " " + data.list[0].name + ".</p>";
-                out = out + "<p id='myweather'>" + phrases.rightnow + " (" + hours + ":" + minutes + ") :</p>";
-                out = out + "<div class='weathertext'>" + weather + "</div>";
-                out = out + "<div class='temp'>" + tempicon + "<div class='temptext'>" + tempnote + " <span class='temperature'> (" + Math.round((avg_temp * 1.8) + 32) + "&deg;F / " + Math.round(avg_temp) + "&deg;C)</span></div></div>";
+                out += "<div id='weatherpanel'>";
+                out += "<p id='loc'>" + phrases.near + " " + data.list[0].name + ".</p>";
+                out += "<p id='myweather'>" + phrases.rightnow + " (" + hours + ":" + minutes + ") :</p>";
+                out += "<div class='weathertext'>" + weather + "</div>";
+                out += "<div class='temp'>" + tempicon + "<div class='temptext'>" + tempnote + " <span class='temperature'> (" + Math.round((avg_temp * 1.8) + 32) + "&deg;F / " + Math.round(avg_temp) + "&deg;C)</span></div></div>";
                 if (night)
                 {
-                    out = out + "<div class='footnote'>" + phrases.outsidenight + "</div>";
+                    out += "<div class='footnote'>" + phrases.outsidenight + "</div>";
                 }
                 else
                 {
-                    out = out + "<div class='footnote'>" + phrases.outside + "</div>";
+                    out += "<div class='footnote'>" + phrases.outside + "</div>";
                 }
-                out = out + "<div class='poweredby'>" + phrases.attribution + "<br/>" + phrases.onlyon + " BlackBerry&reg; 10</div>";
-                out = out + "</div>";
-                out = out + "<div id='menu'><div id='bbm'></div><div id='share'></div><div id='refresh'></div><div id='info'></div></div>";
+                out += "<div class='poweredby'>" + phrases.attribution + "<br/>" + phrases.onlyon + " BlackBerry&reg; 10</div>";
+                out += "</div>";
+                out += "<div id='menu'><div id='bbm'></div><div id='share'></div><div id='refresh'></div><div id='info'></div></div>";
                 if (night)
                 {
                     out = out.replace(/\.png/g, "_n.png");
@@ -311,7 +299,20 @@ $(function ($)
                  }
                  });
                  */
-            weatherDiv.after("<div id='infoscreen'><h1>" + phrases.appname + "</h1><p>" + phrases.bymarco + "</p><p>" + phrases.copyright + "</p><p>" + phrases.idea + "</p><p>" + phrases.poweredby + " <strong>openweathermap.org</strong></p><div id='lang'><select id='language'><option value='en'>English</option><option value='gb'>British English</option><option value='es'>Espa&ntilde;ol</option><option value='it'>Italiano</option><option value='nl'>Nederlands</option></select></div><div id='applink'>" + phrases.screamager + " <img src='img/scrmicon.png'></div><div id='returnbtn'>&raquo; " + phrases.return + "</div></div><div id='bbmscreen'><h2>BBM</h2><ul><li id='bbmupdate'>&raquo; " + phrases.setpersonal + "</li><li id='bbmdownload'>&raquo; " + phrases.invite + "</li><li id='return'>&raquo; " + phrases.return + "</li></ul></div>");
+            weatherDiv.after("<div id='infoscreen'><h1>" + phrases.appname + "</h1><p>" + phrases.bymarco + "</p><p>" + phrases.copyright + "</p><p>" + phrases.idea + "</p><p>" + phrases.poweredby + " <strong>openweathermap.org</strong></p><div id='lang'><select id='language'><option value='en'>English</option><option value='gb'>British English</option><option value='es'>Espa&ntilde;ol</option><option value='it'>Italiano</option><option value='nl'>Nederlands</option></select></div>" +
+/*
+                "<div id='applink'>" + phrases.screamager + " <img src='img/scrmicon.png'></div>" +
+*/
+/*
+                "<div id='returnbtn'>&raquo; " + phrases.return + "</div>" +
+*/
+                "</div>"
+            /*    "<div id='bbmscreen'>" +
+                "<h2>BBM</h2><ul><li id='bbmupdate'>&raquo; " + phrases.setpersonal + "</li><li id='bbmdownload'>&raquo; " + phrases.invite + "</li><li id='return'>&raquo; " + phrases.return + "</li></ul></div>"
+            */);
+
+            $("#language option[value=" + lang + "]").attr("selected","selected");
+
             $("#infoscreen, #bbmscreen").hide();
             $("#returnbtn, #bbmscreen li, #applink")
                 .bind("touchstart", function (e)
@@ -404,10 +405,10 @@ $(function ($)
                 });
 */
         }).error(function ()
-            {
-                var out = "<div class='weathertext'>" + phrases.errorfetching + "</div><div class='footnote'>" + phrases.lookoutsideafterall + "</div>";
-                $("#weather").html(out);
-            });
+        {
+            var out = "<div class='weathertext'>" + phrases.errorfetching + "</div><div class='footnote'>" + phrases.lookoutsideafterall + "</div>";
+            $("#weather").html(out);
+        });
     }
 }
 
